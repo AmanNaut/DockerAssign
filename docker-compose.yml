@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    # volumes:
+    #   - db-data:/var/lib/mysql
+    networks:
+      - backend
+
+  # Java Backend
+  backend:
+    image: amannautiyal12/java-backend:latest  # Replace with your actual backend image
+    container_name: java-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.18.0.2:3306
+      FRONTEND_IP: 172.19.0.3
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - backend
+      - frontend
+
+  # React Frontend
+  frontend:
+    image: amannautiyal12/react-frontent:latest  # Replace with your actual frontend image
+    container_name: react-frontend
+    environment:
+      REACT_APP_API_URL: 'http://172.18.0.3172.19.0.2:8080/api/input'
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - frontend
+
+# volumes:
+#   db-data:
+
+networks:
+  backend:
+  frontend:
