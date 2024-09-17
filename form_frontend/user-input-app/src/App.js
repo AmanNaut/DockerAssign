@@ -8,7 +8,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8088/api/input', inputValue, {
+      const response = await axios.post('https://legendary-halibut-gg69vx69wwj29vq9-8080.app.github.dev/api/input', inputValue, {
         headers: {
           'Content-Type': 'application/json',
         },

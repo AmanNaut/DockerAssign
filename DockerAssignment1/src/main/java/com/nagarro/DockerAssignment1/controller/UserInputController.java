@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nagarro.DockerAssignment1.entity.UserInput;
 import com.nagarro.DockerAssignment1.service.UserInputService;
 
-@CrossOrigin(origins = "http://localhost:3000") // allow frontend from this origin
+@CrossOrigin(origins = "http://${FRONTEND_IP}:3000") // allow frontend from this origin
 @RestController
 @RequestMapping("/api/input")
 public class UserInputController {
